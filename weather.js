@@ -1,5 +1,9 @@
 const authToken = 'bd3be3a2a884168866b96b0f81237152';
 
+let container= document.querySelector('#container');
+let input= document.querySelector('input');
+let form= document.querySelector('form');
+
 const colorTemperatures = [
   {limitTemp: 40, color: 'red'},
   {limitTemp: 35, color: 'orange'},
@@ -25,7 +29,8 @@ let makeAllRequestsSimultaneously = collectionOfCities => {
 
 let getWeatherForCity = async function(ev) {
   ev.preventDefault();
-  let cities = $('input').val().split('-');
+  // let cities = $('input').val().split('-');
+  let cities = input.value.split('-');
   let intervalCounter = 0;
 
   try {
@@ -50,9 +55,17 @@ let getWeatherForCity = async function(ev) {
       footer.append(desc, littleImage);
       section.append(heading, tempParagraph, footer);
       section.style.background = color;
-      $('#container').append(section);
-      $('section').animate({opacity: '1'}, 500);
-      $('input').val('');
+      // $('#container').append(section);
+      // $('section').animate({opacity: '1'}, 500);
+      // $('input').val('');
+
+      container.append(section);
+      section.style.opacity='1';
+
+
+      input.value='';
+
+
       intervalCounter++;
     }, 350)
   }catch(e) {
@@ -60,6 +73,8 @@ let getWeatherForCity = async function(ev) {
   }
 }
 
-$(document).ready(ev => {
-  $('form').submit(getWeatherForCity);
-})
+form.addEventListener('submit', getWeatherForCity);
+
+// $(document).ready(ev => {
+//   $('form').submit(getWeatherForCity);
+// })
